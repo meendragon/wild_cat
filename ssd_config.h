@@ -199,8 +199,8 @@ static_assert((ONESHOT_PAGE_SIZE % FLASH_PAGE_SIZE) == 0);
 
 #define FW_CH_XFER_LATENCY (0)
 
-#define OP_AREA_PERCENT (0.07)
-// Over-Provisioning 7%
+#define OP_AREA_PERCENT (0.28)
+// Over-Provisioning 28%=> datacenter
 
 #define GLOBAL_WB_SIZE (NAND_CHANNELS * LUNS_PER_NAND_CH * ONESHOT_PAGE_SIZE * 2)
 // 전역 Write Buffer 크기
