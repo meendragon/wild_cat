@@ -1,0 +1,41 @@
+nohup: ignoring input
+============================================
+ fio_sweep 시작: Thu Jun 11 05:12:30 PM KST 2026
+ 모드: 0 1 2 3   cycles=12  rt=40s
+ 예상: 모드당 ~1h 0m, 총 4모드 ~4h 3m
+ 결과: ./sweep_results/gc_<n>_<name>.csv
+============================================
+
+############################################
+# gc_mode=0 (greedy) 시작 - Thu Jun 11 05:12:30 PM KST 2026
+############################################
+  [load] ./start_virt.sh 0
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=0: Greedy)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=0
+✅ insmod 성공! gc_mode=0 (Greedy)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: c07a7763-275b-4ba3-aa3a-6d369b340d43
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=0, gc=0
+  [fill] 6G
+  cycle  1/12  seg_waf=1.7695 range=129 (Δ+129)  ETA(mode) 52m
+  cycle  2/12  seg_waf=1.8158 range=209 (Δ+80)  ETA(mode) 47m
+  cycle  3/12  seg_waf=1.8513 range=246 (Δ+37)  ETA(mode) 42m
+./fio_sweep.sh: line 186: 20463 Hangup                  timeout $((PATTERN_RT+30)) fio --filename="${FILE}" --direct=1 --ioengine=libaio --rw=randwrite --bs=4k --numjobs=1 --iodepth=32 --norandommap=1 --randrepeat=0 --offset=0 --size=1G --random_distribution=zipf:2.5 --time_based --runtime=${PATTERN_RT} --name=p_cliff > /dev/null 2>&1
+
+⚠ INTERRUPTED at Thu Jun 11 05:28:59 PM KST 2026 — 부분 CSV는 ./sweep_results에 보존됨

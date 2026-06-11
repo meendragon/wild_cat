@@ -1,0 +1,105 @@
+nohup: ignoring input
+============================================
+ run_all2 v3 시작: Thu Jun 11 12:39:28 PM KST 2026
+ 모드: 0 1 2 3
+ 시나리오: all
+============================================
+
+############################################
+# gc_mode=0 (greedy) 시작 - Thu Jun 11 12:39:28 PM KST 2026
+############################################
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=0: Greedy)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=0
+✅ insmod 성공! gc_mode=0 (Greedy)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: a0d2a209-33c7-4510-8e9d-f64544e95737
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 모듈 검증 통과: gc_mode=0, gc=0
+Estimated: 280 patterns total, ~4h 49m per policy
+[init] fill 6G
+NVMe Flush: success
+
+==== Cycle 1/40 (elapsed: 0m) ====
+NVMe Flush: success
+NVMe Flush: success
+NVMe Flush: success
+NVMe Flush: success
+NVMe Flush: success
+NVMe Flush: success
+NVMe Flush: success
+    cycle done in 7m, ETA: 4h 47m
+
+==== Cycle 2/40 (elapsed: 7m) ====
+NVMe Flush: success
+NVMe Flush: success
+
+⚠ INTERRUPTED at Thu Jun 11 12:49:29 PM KST 2026 — partial log preserved
+=== Thu Jun 11 12:39:33 PM KST 2026 === fio_write9 v1 cycles=40 rt=60s meen/12G LONG-RUN
+--- phase0 ---
+[   46.262758] NVMeVirt: [FLUSH] gc_mode=0 gc=0 copied=0 avg=0 host=1624325 erases=0 WAF=1.000 copy_ratio=0.000
+[   46.262763] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+
+########## c1_p1: HOT_strong ##########
+--- phase1 ---
+[  107.602574] NVMeVirt: [FLUSH] gc_mode=0 gc=33469 copied=13636 avg=0 host=10690873 erases=33469 WAF=1.001 copy_ratio=0.001
+[  107.602579] NVMeVirt: [Wear] avg=4 min=0 max=73 range=73 std=11 CoV=2.750 lines=8192
+
+########## c1_p2: COLD ##########
+--- phase2 ---
+[  169.923159] NVMeVirt: [FLUSH] gc_mode=0 gc=86796 copied=10249100 avg=118 host=14535121 erases=86796 WAF=1.705 copy_ratio=0.447
+[  169.923165] NVMeVirt: [Wear] avg=10 min=0 max=79 range=79 std=12 CoV=1.200 lines=8192
+
+########## c1_p3: BIMODAL ##########
+--- phase3 ---
+[  232.362891] NVMeVirt: [FLUSH] gc_mode=0 gc=121809 copied=11969924 avg=98 host=22057249 erases=121809 WAF=1.542 copy_ratio=0.372
+[  232.362896] NVMeVirt: [Wear] avg=14 min=0 max=95 range=95 std=15 CoV=1.071 lines=8192
+
+########## c1_p4: CLIFF ##########
+--- phase4 ---
+[  294.740182] NVMeVirt: [FLUSH] gc_mode=0 gc=150626 copied=12235247 avg=81 host=29399545 erases=150626 WAF=1.416 copy_ratio=0.307
+[  294.740187] NVMeVirt: [Wear] avg=18 min=0 max=170 range=170 std=22 CoV=1.222 lines=8192
+
+########## c1_p5: RESIZE_wide ##########
+--- phase5 ---
+[  357.164931] NVMeVirt: [FLUSH] gc_mode=0 gc=191133 copied=15797744 avg=82 host=36531314 erases=191133 WAF=1.432 copy_ratio=0.313
+[  357.164936] NVMeVirt: [Wear] avg=23 min=0 max=192 range=192 std=26 CoV=1.130 lines=8192
+
+########## c1_p6: MIXED ##########
+--- phase6 ---
+[  419.549581] NVMeVirt: [FLUSH] gc_mode=0 gc=235009 copied=23686349 avg=100 host=40226145 erases=235009 WAF=1.588 copy_ratio=0.381
+[  419.549586] NVMeVirt: [Wear] avg=28 min=0 max=195 range=195 std=27 CoV=0.964 lines=8192
+
+########## c1_p7: DECAY ##########
+--- phase7 ---
+[  482.047391] NVMeVirt: [FLUSH] gc_mode=0 gc=286486 copied=33958339 avg=118 host=43544233 erases=286486 WAF=1.779 copy_ratio=0.448
+[  482.047397] NVMeVirt: [Wear] avg=34 min=0 max=203 range=203 std=27 CoV=0.794 lines=8192
+
+########## c2_p1: HOT_strong ##########
+--- phase8 ---
+[  544.839796] NVMeVirt: [FLUSH] gc_mode=0 gc=319389 copied=34791893 avg=108 host=51396709 erases=319389 WAF=1.676 copy_ratio=0.412
+[  544.839800] NVMeVirt: [Wear] avg=38 min=0 max=203 range=203 std=29 CoV=0.763 lines=8192
+
+########## c2_p2: COLD ##########
+--- phase9 ---
+[  607.685404] NVMeVirt: [FLUSH] gc_mode=0 gc=372428 copied=45114541 avg=121 host=55076629 erases=372428 WAF=1.819 copy_ratio=0.458
+[  607.685408] NVMeVirt: [Wear] avg=45 min=0 max=210 range=210 std=29 CoV=0.644 lines=8192
+
+########## c2_p3: BIMODAL ##########
+INTERRUPTED at Thu Jun 11 12:49:29 PM KST 2026
+./fio_write9.sh: line 1:  5999 Hangup                  timeout $((PATTERN_RT + 30)) fio --filename="${FILE}" --direct=1 --ioengine=libaio --rw=randwrite --bs=4k --numjobs=1 --iodepth=16 --norandommap=1 --randrepeat=0 --offset=0 --size=2G --random_distribution=zipf:1.8 --time_based --runtime=${PATTERN_RT} --name=p_bi_A > /dev/null 2>&1
+./fio_write9.sh: line 1:  6000 Hangup                  timeout $((PATTERN_RT + 30)) fio --filename="${FILE}" --direct=1 --ioengine=libaio --rw=randwrite --bs=4k --numjobs=1 --iodepth=16 --norandommap=1 --randrepeat=0 --offset=4G --size=2G --random_distribution=zipf:1.8 --time_based --runtime=${PATTERN_RT} --name=p_bi_B > /dev/null 2>&1

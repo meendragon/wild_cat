@@ -1,0 +1,690 @@
+nohup: ignoring input
+============================================
+ fio_static (6.2 정적 그리드) 시작: Thu Jun 11 06:39:12 PM KST 2026
+ 모드: 0 1 2 3   워크로드: uniform hot_zipf hot_narrow skew_mid
+ 패턴당 런타임=90s   (워크로드마다 reload→fresh)
+ 예상: 총 4모드 × 4워크로드 ~58m
+ 결과: ./static_results/static_<n>_<name>.csv
+============================================
+
+############################################
+# gc_mode=0 (greedy) - Thu Jun 11 06:39:12 PM KST 2026
+############################################
+  --- workload=uniform ---
+  [load] ./start_virt.sh 0
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=0: Greedy)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=0
+✅ insmod 성공! gc_mode=0 (Greedy)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 10a7774f-fe78-49cf-a7c5-3e950d914e2e
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=0, gc=0
+  [fill] 6G
+  [run] uniform (90s)
+    → WAF=3.145  CoV=0.333  range=11  gc=78572
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4203.666087] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4203.666088] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 4300.869837] NVMeVirt: [FLUSH] gc_mode=0 gc=78572 copied=15422836 avg=196 host=7189185 erases=78572 WAF=3.145 copy_ratio=0.743
+[ 4300.869842] NVMeVirt: [Wear] avg=9 min=0 max=11 range=11 std=3 CoV=0.333 lines=8192
+[ 4300.869843] NVMeVirt: [WearGap] total_diff=40 samples=78568 per_gc=0.000
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_zipf ---
+  [load] ./start_virt.sh 0
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=0: Greedy)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=0
+✅ insmod 성공! gc_mode=0 (Greedy)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: affd40c8-dff1-4c5e-953b-d5e81f88b610
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=0, gc=0
+  [fill] 6G
+  [run] hot_zipf (90s)
+    → WAF=1.001  CoV=2.833  range=108  gc=50605
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4311.440358] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4311.440360] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 4408.374125] NVMeVirt: [FLUSH] gc_mode=0 gc=50605 copied=23573 avg=0 host=15204446 erases=50605 WAF=1.001 copy_ratio=0.001
+[ 4408.374130] NVMeVirt: [Wear] avg=6 min=0 max=108 range=108 std=17 CoV=2.833 lines=8192
+[ 4408.374132] NVMeVirt: [WearGap] total_diff=161 samples=50601 per_gc=0.003
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_narrow ---
+  [load] ./start_virt.sh 0
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=0: Greedy)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=0
+✅ insmod 성공! gc_mode=0 (Greedy)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 804f7d36-1438-461e-acf7-2efbdb00277f
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=0, gc=0
+  [fill] 6G
+  [run] hot_narrow (90s)
+    → WAF=1.000  CoV=3.600  range=114  gc=43140
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4418.886653] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4418.886655] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 4515.550901] NVMeVirt: [FLUSH] gc_mode=0 gc=43140 copied=0 avg=0 host=13256446 erases=43140 WAF=1.000 copy_ratio=0.000
+[ 4515.550906] NVMeVirt: [Wear] avg=5 min=0 max=114 range=114 std=18 CoV=3.600 lines=8192
+[ 4515.550908] NVMeVirt: [WearGap] total_diff=144 samples=43136 per_gc=0.003
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=skew_mid ---
+  [load] ./start_virt.sh 0
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=0: Greedy)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=0
+✅ insmod 성공! gc_mode=0 (Greedy)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 9c9d332b-8f60-4bd1-bf0f-59e342720859
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=0, gc=0
+  [fill] 6G
+  [run] skew_mid (90s)
+    → WAF=1.983  CoV=1.125  range=47  gc=70121
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4526.083846] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4526.083848] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 4623.462913] NVMeVirt: [FLUSH] gc_mode=0 gc=70121 copied=10103845 avg=144 host=10278000 erases=70121 WAF=1.983 copy_ratio=0.545
+[ 4623.462918] NVMeVirt: [Wear] avg=8 min=0 max=47 range=47 std=9 CoV=1.125 lines=8192
+[ 4623.462920] NVMeVirt: [WearGap] total_diff=153 samples=70117 per_gc=0.002
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  ✓ greedy 완료 → ./static_results/static_0_greedy.csv
+
+############################################
+# gc_mode=1 (cb) - Thu Jun 11 06:46:25 PM KST 2026
+############################################
+  --- workload=uniform ---
+  [load] ./start_virt.sh 1
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=1: Cost-Benefit)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=1
+✅ insmod 성공! gc_mode=1 (Cost-Benefit)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: b76b6da9-b644-46aa-8c7f-4bbbeb066717
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=1, gc=0
+  [fill] 6G
+  [run] uniform (90s)
+    → WAF=3.109  CoV=0.333  range=11  gc=78598
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4637.014532] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4637.014533] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 4733.693891] NVMeVirt: [FLUSH] gc_mode=1 gc=78598 copied=15344063 avg=195 host=7274858 erases=78598 WAF=3.109 copy_ratio=0.739
+[ 4733.693897] NVMeVirt: [Wear] avg=9 min=0 max=11 range=11 std=3 CoV=0.333 lines=8192
+[ 4733.693899] NVMeVirt: [WearGap] total_diff=40 samples=78594 per_gc=0.000
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_zipf ---
+  [load] ./start_virt.sh 1
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=1: Cost-Benefit)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=1
+✅ insmod 성공! gc_mode=1 (Cost-Benefit)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 73769d63-e7a6-48f7-9d7f-da99963366fd
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=1, gc=0
+  [fill] 6G
+  [run] hot_zipf (90s)
+    → WAF=1.000  CoV=2.666  range=90  gc=50760
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4744.181517] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4744.181519] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 4840.939768] NVMeVirt: [FLUSH] gc_mode=1 gc=50760 copied=9912 avg=0 host=15259549 erases=50760 WAF=1.000 copy_ratio=0.000
+[ 4840.939773] NVMeVirt: [Wear] avg=6 min=0 max=90 range=90 std=16 CoV=2.666 lines=8192
+[ 4840.939775] NVMeVirt: [WearGap] total_diff=134 samples=50756 per_gc=0.002
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_narrow ---
+  [load] ./start_virt.sh 1
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=1: Cost-Benefit)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=1
+✅ insmod 성공! gc_mode=1 (Cost-Benefit)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 648fa7b2-cda7-4385-9b45-0ac3706a2e8d
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=1, gc=0
+  [fill] 6G
+  [run] hot_narrow (90s)
+    → WAF=1.000  CoV=3.200  range=89  gc=43128
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4851.432976] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4851.432978] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 4948.555933] NVMeVirt: [FLUSH] gc_mode=1 gc=43128 copied=1084 avg=0 host=13253520 erases=43128 WAF=1.000 copy_ratio=0.000
+[ 4948.555938] NVMeVirt: [Wear] avg=5 min=0 max=89 range=89 std=16 CoV=3.200 lines=8192
+[ 4948.555940] NVMeVirt: [WearGap] total_diff=110 samples=43124 per_gc=0.002
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=skew_mid ---
+  [load] ./start_virt.sh 1
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=1: Cost-Benefit)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=1
+✅ insmod 성공! gc_mode=1 (Cost-Benefit)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 0b7db62a-8b2a-4f60-bda2-aa75c916b3c3
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=1, gc=0
+  [fill] 6G
+  [run] skew_mid (90s)
+    → WAF=1.713  CoV=0.857  range=41  gc=64222
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 4959.106738] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 4959.106740] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 5056.697017] NVMeVirt: [FLUSH] gc_mode=1 gc=64222 copied=7839688 avg=122 host=10984691 erases=64222 WAF=1.713 copy_ratio=0.462
+[ 5056.697022] NVMeVirt: [Wear] avg=7 min=0 max=41 range=41 std=6 CoV=0.857 lines=8192
+[ 5056.697024] NVMeVirt: [WearGap] total_diff=118 samples=64218 per_gc=0.001
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  ✓ cb 완료 → ./static_results/static_1_cb.csv
+
+############################################
+# gc_mode=2 (cat) - Thu Jun 11 06:53:39 PM KST 2026
+############################################
+  --- workload=uniform ---
+  [load] ./start_virt.sh 2
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=2: CAT)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=2
+✅ insmod 성공! gc_mode=2 (CAT)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 83da5aab-f258-4116-90ff-f5f533f6018d
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=2, gc=0
+  [fill] 6G
+  [run] uniform (90s)
+    → WAF=3.143  CoV=0.333  range=11  gc=78390
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5070.279139] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 5070.279141] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 5167.069264] NVMeVirt: [FLUSH] gc_mode=2 gc=78390 copied=15386178 avg=196 host=7177872 erases=78390 WAF=3.143 copy_ratio=0.743
+[ 5167.069268] NVMeVirt: [Wear] avg=9 min=0 max=11 range=11 std=3 CoV=0.333 lines=8192
+[ 5167.069270] NVMeVirt: [WearGap] total_diff=39 samples=78386 per_gc=0.000
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_zipf ---
+  [load] ./start_virt.sh 2
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=2: CAT)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=2
+✅ insmod 성공! gc_mode=2 (CAT)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 04b5869e-14f2-496f-9d1d-0d06fe2bc6be
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=2, gc=0
+  [fill] 6G
+  [run] hot_zipf (90s)
+    → WAF=1.000  CoV=2.666  range=80  gc=50783
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5177.596117] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 5177.596119] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 5274.452763] NVMeVirt: [FLUSH] gc_mode=2 gc=50783 copied=9748 avg=0 host=15265832 erases=50783 WAF=1.000 copy_ratio=0.000
+[ 5274.452768] NVMeVirt: [Wear] avg=6 min=0 max=80 range=80 std=16 CoV=2.666 lines=8192
+[ 5274.452769] NVMeVirt: [WearGap] total_diff=115 samples=50779 per_gc=0.002
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_narrow ---
+  [load] ./start_virt.sh 2
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=2: CAT)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=2
+✅ insmod 성공! gc_mode=2 (CAT)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 2e48f19e-769b-4d51-93cf-002d97d4ccc7
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=2, gc=0
+  [fill] 6G
+  [run] hot_narrow (90s)
+    → WAF=1.000  CoV=3.000  range=66  gc=43152
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5284.939267] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 5284.939268] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 5381.870870] NVMeVirt: [FLUSH] gc_mode=2 gc=43152 copied=1366 avg=0 host=13259450 erases=43152 WAF=1.000 copy_ratio=0.000
+[ 5381.870875] NVMeVirt: [Wear] avg=5 min=0 max=66 range=66 std=15 CoV=3.000 lines=8192
+[ 5381.870877] NVMeVirt: [WearGap] total_diff=83 samples=43148 per_gc=0.001
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=skew_mid ---
+  [load] ./start_virt.sh 2
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=2: CAT)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=2
+✅ insmod 성공! gc_mode=2 (CAT)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: a3e6e818-e8c3-44de-a345-df1ce41b9c4f
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=2, gc=0
+  [fill] 6G
+  [run] skew_mid (90s)
+    → WAF=1.609  CoV=0.500  range=27  gc=67041
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5392.394646] NVMeVirt: [Wear] avg=0 min=0 max=0 range=0 std=0 CoV=0.000 lines=8192
+[ 5392.394648] NVMeVirt: [WearGap] total_diff=0 samples=0 per_gc=0.000
+[ 5489.333520] NVMeVirt: [FLUSH] gc_mode=2 gc=67041 copied=7408406 avg=110 host=12160029 erases=67041 WAF=1.609 copy_ratio=0.418
+[ 5489.333525] NVMeVirt: [Wear] avg=8 min=0 max=27 range=27 std=4 CoV=0.500 lines=8192
+[ 5489.333526] NVMeVirt: [WearGap] total_diff=84 samples=67037 per_gc=0.001
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  ✓ cat 완료 → ./static_results/static_2_cat.csv
+
+############################################
+# gc_mode=3 (rl) - Thu Jun 11 07:00:51 PM KST 2026
+############################################
+  --- workload=uniform ---
+  [load] ./start_virt.sh 3
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=3: RL)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=3
+✅ insmod 성공! gc_mode=3 (RL)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 44cdaed5-2f81-4f14-9a1c-22ea4f3f11f7
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=3, gc=0
+  [fill] 6G
+  [run] uniform (90s)
+    → WAF=3.111  CoV=0.333  range=11  gc=78668
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5502.841546] NVMeVirt: [RL] episodes=0 avg_reward=0 p0_eps=300 p0_alpha=1 p0_delta=2
+[ 5599.902676] NVMeVirt: [FLUSH] gc_mode=3 gc=78668 copied=15361459 avg=195 host=7275986 erases=78668 WAF=3.111 copy_ratio=0.739
+[ 5599.902681] NVMeVirt: [Wear] avg=9 min=0 max=11 range=11 std=3 CoV=0.333 lines=8192
+[ 5599.902683] NVMeVirt: [WearGap] total_diff=40 samples=78664 per_gc=0.000
+[ 5599.902684] NVMeVirt: [RL] episodes=78668 avg_reward=-880 p0_eps=50 p0_alpha=1 p0_delta=1
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_zipf ---
+  [load] ./start_virt.sh 3
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=3: RL)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=3
+✅ insmod 성공! gc_mode=3 (RL)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: c09196af-b309-45c1-b348-7c40f909a60d
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=3, gc=0
+  [fill] 6G
+  [run] hot_zipf (90s)
+    → WAF=1.006  CoV=2.166  range=73  gc=50124
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5610.407577] NVMeVirt: [RL] episodes=0 avg_reward=0 p0_eps=300 p0_alpha=1 p0_delta=2
+[ 5707.085716] NVMeVirt: [FLUSH] gc_mode=3 gc=50124 copied=102053 avg=2 host=14999462 erases=50124 WAF=1.006 copy_ratio=0.007
+[ 5707.085720] NVMeVirt: [Wear] avg=6 min=0 max=73 range=73 std=13 CoV=2.166 lines=8192
+[ 5707.085722] NVMeVirt: [WearGap] total_diff=112 samples=50120 per_gc=0.002
+[ 5707.085723] NVMeVirt: [RL] episodes=50124 avg_reward=-575 p0_eps=50 p0_alpha=0 p0_delta=2
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=hot_narrow ---
+  [load] ./start_virt.sh 3
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=3: RL)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=3
+✅ insmod 성공! gc_mode=3 (RL)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 6aa7fb9c-b89d-4097-939c-7c24a017b821
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=3, gc=0
+  [fill] 6G
+  [run] hot_narrow (90s)
+    → WAF=1.002  CoV=2.800  range=66  gc=42984
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5717.613939] NVMeVirt: [RL] episodes=0 avg_reward=0 p0_eps=300 p0_alpha=1 p0_delta=2
+[ 5814.503180] NVMeVirt: [FLUSH] gc_mode=3 gc=42984 copied=30833 avg=0 host=13185671 erases=42984 WAF=1.002 copy_ratio=0.002
+[ 5814.503185] NVMeVirt: [Wear] avg=5 min=0 max=66 range=66 std=14 CoV=2.800 lines=8192
+[ 5814.503186] NVMeVirt: [WearGap] total_diff=86 samples=42980 per_gc=0.002
+[ 5814.503187] NVMeVirt: [RL] episodes=42984 avg_reward=-505 p0_eps=50 p0_alpha=2 p0_delta=2
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  --- workload=skew_mid ---
+  [load] ./start_virt.sh 3
+----------------------------------------
+ℹ️  기존 모듈 없음
+🚀 nvmev.ko 로드 중... (gc_mode=3: RL)
+   sudo insmod /home/meen/wild_cat/nvmev.ko memmap_start=4G memmap_size=8192M cpus=1,2,3,4 gc_mode=3
+✅ insmod 성공! gc_mode=3 (RL)
+nvmev                  90112  0
+✅ /dev/nvme1n1 확인 완료 (가상 디바이스)
+📁 파일시스템 생성 중...
+mke2fs 1.47.0 (5-Feb-2023)
+Creating filesystem with 1959715 4k blocks and 490560 inodes
+Filesystem UUID: 3cf9f95f-16a3-4909-b2b4-db9d906a01ac
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/60     done                            
+Writing inode tables:  0/60     done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information:  0/60     done
+
+✅ Mount 완료! (/dev/nvme1n1 → /home/meen/wild_cat/mnt)
+----------------------------------------
+  ✅ 검증 통과: gc_mode=3, gc=0
+  [fill] 6G
+  [run] skew_mid (90s)
+    → WAF=1.777  CoV=0.500  range=41  gc=68469
+  [unload] ./end_virt.sh
+----------------------------------------
+🛑 NVMeVirt 종료 중...
+📂 /home/meen/wild_cat/mnt umount 중...
+📊 dmesg 통계:
+[ 5825.037907] NVMeVirt: [RL] episodes=0 avg_reward=0 p0_eps=300 p0_alpha=1 p0_delta=2
+[ 5922.148845] NVMeVirt: [FLUSH] gc_mode=3 gc=68469 copied=8724919 avg=127 host=11220815 erases=68469 WAF=1.777 copy_ratio=0.482
+[ 5922.148850] NVMeVirt: [Wear] avg=8 min=0 max=41 range=41 std=4 CoV=0.500 lines=8192
+[ 5922.148852] NVMeVirt: [WearGap] total_diff=105 samples=68465 per_gc=0.001
+[ 5922.148853] NVMeVirt: [RL] episodes=68469 avg_reward=-954 p0_eps=50 p0_alpha=0 p0_delta=1
+🔄 nvmev 모듈 제거 중...
+✅ 모듈 제거 완료
+----------------------------------------
+  ✓ rl 완료 → ./static_results/static_3_rl.csv
+
+=== 요약: WAF 그리드 (행=워크로드, 열=정책) ===
+workload        greedy        cb       cat        rl
+uniform          3.145     3.109     3.143     3.111
+hot_zipf         1.001     1.000     1.000     1.006
+hot_narrow       1.000     1.000     1.000     1.002
+skew_mid         1.983     1.713     1.609     1.777
+
+=== 요약: CoV 그리드 (행=워크로드, 열=정책) ===
+workload        greedy        cb       cat        rl
+uniform          0.333     0.333     0.333     0.333
+hot_zipf         2.833     2.666     2.666     2.166
+hot_narrow       3.600     3.200     3.000     2.800
+skew_mid         1.125     0.857     0.500     0.500
+
+============================================
+ 🎉 완료: 28m
+ CSV: ./static_results/   raw: ./logs/
+ 분석: WAF 그리드에서 행마다 최저 정책, CoV 그리드에서 행마다
+       최저 정책을 표시 → 두 최저가 다르고 워크로드마다 바뀌면
+       '축 반영비가 워크로드에 따라 갈린다'(6.2 우위 교차) 입증.
+============================================

@@ -1,0 +1,16 @@
+# 컴파일된 객체 파일 및 모듈 (무시)
+*.o
+*.ko
+*.mod
+*.mod.c
+*.order
+*.symvers
+.*.cmd
+.tmp_versions/
+*.txt
+
+mnt/
+
+# VS Code 설정 (무시)
+.vscode/
+.DS_Store
