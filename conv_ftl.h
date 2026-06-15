@@ -46,17 +46,14 @@ typedef struct line *(*victim_select_fn)(struct conv_ftl *, bool);
 /* ----------------------------------------------------------------
  * RL state/action 차원
  *
- * State 6축:
- *   S1 Greedy-vs-CB gap   : α의 cost          (4)
- *   S2 CB-vs-CAT gap      : δ의 cost          (4)
- *   S3 hot write ratio    : α의 benefit       (4)
- *   S4 hot ratio 추세     : α benefit의 Δ     (3)
- *   S5 erase 분배 질      : δ leading 지표    (3)
- *   S6 victim erase 분산  : δ lagging 지표    (3)
+*   State  : 6D (4x4x4x3x3x3 = 1728)
+ *   Action : 2축 (alpha 4 x delta 5 = 20)
+ *   Reward : R = -W - λ·E   (W=per-GC WAF, E=상대 wear 변화)
+ *   Q-table: 1728 x 20 = 34,560 entries (~270KB)
  *
- * Action 2축:
- *   A1 alpha_level (3) : α = 0.5, 1.0, 2.0
- *   A2 delta_level (4) : δ = 0, 0.5, 1.0, 1.5
+* Action 2축:
+ *   A1 alpha_level (4) : α = 0.5, 1.0, 1.5, 2.0
+ *   A2 delta_level (5) : δ = 0, 0.5, 1.0, 1.5, 2.0
  *   action = a1 * RL_NUM_A2 + a2
  * ---------------------------------------------------------------- */
 #define RL_NUM_S1       4
@@ -68,9 +65,9 @@ typedef struct line *(*victim_select_fn)(struct conv_ftl *, bool);
 #define RL_NUM_STATES   (RL_NUM_S1 * RL_NUM_S2 * RL_NUM_S3 * \
                          RL_NUM_S4 * RL_NUM_S5 * RL_NUM_S6) /* 1728 */
 
-#define RL_NUM_A1       3   /* alpha levels */
-#define RL_NUM_A2       4   /* delta levels */
-#define RL_NUM_ACTIONS  (RL_NUM_A1 * RL_NUM_A2)  /* 12 */
+#define RL_NUM_A1       4   /* alpha levels: 0.5, 1.0, 1.5, 2.0 */
+#define RL_NUM_A2       5   /* delta levels: 0, 0.5, 1.0, 1.5, 2.0 */
+#define RL_NUM_ACTIONS  (RL_NUM_A1 * RL_NUM_A2)  /* 20 */
 
 /* 고정소수점 스케일 (커널 = no-FPU) */
 #define RL_Q_SCALE      1000

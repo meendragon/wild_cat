@@ -110,24 +110,26 @@ static bool page_is_hot(struct conv_ftl *ftl, uint64_t lpn, uint64_t now)
  * 나눗셈 없이 victim을 고른다.
  * ================================================================ */
 
-/* AgeWeight^α : level 0/1/2 -> α=0.5/1.0/2.0 */
+/* AgeWeight^α : level 0/1/2/3 -> α=0.5/1.0/1.5/2.0 */
 static uint64_t apply_alpha(uint64_t aw, uint32_t level)
 {
 	switch (level) {
-	case 0:  return isqrt_u64(aw);
-	case 1:  return aw;
-	default: return aw * aw;
+	case 0:  return isqrt_u64(aw);          /* α=0.5 */
+	case 1:  return aw;                      /* α=1.0 */
+	case 2:  return aw * isqrt_u64(aw);      /* α=1.5 */
+	default: return aw * aw;                 /* α=2.0 */
 	}
 }
 
-/* (EraseCnt+1)^δ : level 0/1/2/3 -> δ=0/0.5/1.0/1.5 */
+/* (EraseCnt+1)^δ : level 0/1/2/3/4 -> δ=0/0.5/1.0/1.5/2.0 */
 static uint64_t apply_delta(uint64_t ec1, uint32_t level)
 {
 	switch (level) {
-	case 0:  return 1;
-	case 1:  return isqrt_u64(ec1);
-	case 2:  return ec1;
-	default: return ec1 * isqrt_u64(ec1);
+	case 0:  return 1;                       /* δ=0   */
+	case 1:  return isqrt_u64(ec1);          /* δ=0.5 */
+	case 2:  return ec1;                     /* δ=1.0 */
+	case 3:  return ec1 * isqrt_u64(ec1);    /* δ=1.5 */
+	default: return ec1 * ec1;               /* δ=2.0 */
 	}
 }
 
